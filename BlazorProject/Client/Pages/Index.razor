@@ -1,0 +1,53 @@
+﻿@page "/"
+@using BlazorProject.Shared
+@using Syncfusion.Blazor.Spinner
+@using Syncfusion.Blazor.Grids
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+<hr />
+@*@if (Employee == null)
+{
+    <SfSpinner Visible="true" Size="68" Label="Loading.....">
+
+    </SfSpinner>
+}*@
+
+
+    <SfGrid TValue="Employee" AllowPaging="true" AllowSorting="true" AllowMultiSorting="true">
+        <SfDataManager  Adaptor="Adaptors.CustomAdaptor" AdaptorInstance="@typeof(EmployeeAdapter)"></SfDataManager>
+        <GridPageSettings PageSize="5" PageCount="3" PageSizes="@PagerDropDown"></GridPageSettings>
+        <GridSortSettings AllowUnsort="false">
+            <GridSortColumns>
+                <GridSortColumn Field="EmployeeId"></GridSortColumn>
+            </GridSortColumns>
+        </GridSortSettings>
+        @*<GridTextWrapSettings></GridTextWrapSettings>*@
+        <GridColumns>
+            
+            @*<GridColumn Field="@nameof(Employee.PhotoPath)"></GridColumn>*@
+            <GridColumn AllowSearching="false" Field=@nameof(Employee.EmployeeId) HeaderText="Employee ID"></GridColumn>
+            <GridColumn Field=@nameof(Employee.FirstName) HeaderText="First Name"></GridColumn>
+            <GridColumn AllowSorting="false" Field=@nameof(Employee.LastName) HeaderText=" Last Name"></GridColumn>
+            <GridColumn Field=@nameof(Employee.Email) HeaderText="Email"></GridColumn>
+        </GridColumns>
+    </SfGrid>
+
+
+@*<SurveyPrompt Title="How is Blazor working for you?" />*@
+
+
+@code{
+    public string[] PagerDropDown { get; set; } = new string[] { "All", "5", "10", "20", "50", "100" };
+    //public List<Employee> Employees { get; set; }
+
+    //[Inject]
+    //public IEmployeeService EmployeeService { get; set; }
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    //await Task.Delay(3000);
+    //    Employees = (await EmployeeService.GetEmployees()).ToList();
+    //}
+}
